@@ -1,2 +1,3 @@
 # i8080_emu
-Emulator of Intel 8080 CPU
+
+Currently, this repository contains some drafts of what will eventually become the *Intel 8080* emulator
