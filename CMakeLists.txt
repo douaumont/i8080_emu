@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 add_library(i8080 STATIC)
-target_sources(i8080 PRIVATE src/processor.cpp)
+target_sources(i8080 PRIVATE src/processor.cpp src/register.cpp)
 
 add_executable(tests)
 target_sources(tests PRIVATE tests/test.cpp)

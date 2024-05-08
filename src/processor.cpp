@@ -18,7 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <ranges>
 #include <iostream>
-#include <format>
 #include "processor.hpp"
 
 namespace
@@ -56,49 +55,5 @@ void i8080cpu::TestStart()
     m_registers[Registers::H]->SetValue(std::byte{0xAA});
     std::cout << "Write 0x55 to L\n";
     m_registers[Registers::L]->SetValue(std::byte{0x55});
-    std::cout << "Read from M\n" << std::to_integer<int>(m_registers[Registers::M]->GetValue());
-}
-
-i8080cpu::Register::Register()
-    :
-    m_value(std::byte{0})
-{
-
-}
-
-std::byte i8080cpu::Register::GetValue() const
-{
-    return this->m_value;
-}
-
-void i8080cpu::Register::SetValue(std::byte value)
-{
-    this->m_value = value;
-}
-
-i8080cpu::MemoryRefRegister::MemoryRefRegister(Register::ConstPointer highPart, Register::ConstPointer lowPart)
-    :
-    m_highPart(highPart),
-    m_lowPart(lowPart)
-{
-
-}
-
-std::byte i8080cpu::MemoryRefRegister::GetValue() const
-{
-    const auto address = GetAddress();
-    //read value from memory at `address`
-    std::cout << std::format("Read from {}\n", address);
-    return std::byte{0};
-}
-
-void i8080cpu::MemoryRefRegister::SetValue(std::byte value)
-{
-    const auto address = GetAddress();
-    //write value to `address`
-}
-
-std::uint16_t i8080cpu::MemoryRefRegister::GetAddress() const
-{
-    return JoinParts(this->m_highPart->GetValue(), this->m_lowPart->GetValue());
+    std::cout << "Read from M\n" << std::to_integer<int>(m_registers[Registers::M]->GetValue().value);
 }

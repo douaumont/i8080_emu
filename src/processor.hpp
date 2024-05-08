@@ -23,32 +23,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <cstdint>
 #include <utility>
 #include <memory>
+#include "register.hpp"
 
 class i8080cpu
 {
-    class Register
-    {
-        std::byte m_value;
-    public:
-        using ConstPointer = Register* const;
-        Register();
-        virtual ~Register() = default;
-
-        virtual std::byte GetValue() const;
-        virtual void SetValue(std::byte value);
-    };
-
-    class MemoryRefRegister : public Register
-    {
-        Register::ConstPointer m_highPart, m_lowPart;
-
-        std::uint16_t GetAddress() const;
-    public:
-        MemoryRefRegister(Register::ConstPointer highPart, Register::ConstPointer lowPart);
-        std::byte GetValue() const override;
-        void SetValue(std::byte value) override;
-    };
-
     enum Registers : std::size_t
     {   
         B = 0,
